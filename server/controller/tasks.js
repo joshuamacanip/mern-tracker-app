@@ -16,6 +16,10 @@ const createTask = asyncWrapper(async (req, res) => {
   // Create new Task
   const task = await TaskItem.create(req.body);
 
+  if (!task) {
+    next(createCustomErrorAPI(404, "Failed to create task!"));
+  }
+
   // Respond with newly created task
   res.status(200).json(task);
 });

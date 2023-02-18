@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const connectDB = require("./db/connectDB");
 const tasks = require("./routes/tasks");
 const notFound = require("./middleware/notFoundMiddleware");
@@ -13,11 +14,10 @@ const port = process.env.PORT || 5000;
 
 /// Application level middleware ///
 
+app.use(cors());
+
 // For JSON payload
 app.use(express.json());
-
-// For URLEncoded payload
-app.use(express.urlencoded({ extended: true }));
 
 // Route for the application
 app.use("/api/v0/tasks", tasks);
